@@ -1,3 +1,5 @@
+@import "../../mediaQueries";
+
 :global(#app) {
   .actionButton {
     background: #ebeef0;
@@ -63,6 +65,11 @@
 
   .contentPadding {
     padding: 8px 8px 0 16px;
+
+    @include mobile {
+      padding: 8px;
+      width: 100% !important;
+    }
   }
 
   .cursorPointer {
@@ -197,6 +204,19 @@
     text-transform: uppercase;
   }
 
+  .toggleSidebar {
+    display: none;
+
+    @include mobile {
+      display: block;
+      position: absolute;
+      right: 0;
+      top: 0;
+      margin-top: -20px;
+      margin-right: 17px;
+    }
+  }
+
   .wrapper {
     width: 880px;
   }
@@ -204,6 +224,12 @@
   @media (max-width: 926px) {
     .wrapper {
       width: 95%;
+    }
+  }
+
+  @include mobile {
+    .mobileDisplayNone {
+      display: none;
     }
   }
 }

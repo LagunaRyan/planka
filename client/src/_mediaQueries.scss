@@ -1,0 +1,31 @@
+/* Media Query Widths
+ * Taken from /src/lib/custom-ui/styles.css */
+$mobile-width: 320px;
+$tablet-width: 768px;
+$monitor-sm-width: 992px;
+$monitor-lg-width: 1200px;
+$monitor-xl-width: 1920px;
+
+@mixin mobile {
+  @media (max-width: #{$tablet-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{$tablet-width}) {
+    @content;
+  }
+}
+
+@mixin tablet-only {
+  @media (min-width: #{$tablet-width}) and (max-width: #{$monitor-sm-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin monitor {
+  @media (min-width: #{$monitor-sm-width}) {
+    @content;
+  }
+}

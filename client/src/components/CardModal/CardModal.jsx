@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
@@ -82,6 +82,14 @@ const CardModal = React.memo(
     const [t] = useTranslation();
 
     const isGalleryOpened = useRef(false);
+
+    const [isContentDisplayed, toggleContnet] = useState(true);
+    const [isSidebarDisplayed, toggleSidebar] = useState(false);
+
+    const handleToggleSidebar = () => {
+      toggleContnet(!isContentDisplayed);
+      toggleSidebar(!isSidebarDisplayed);
+    };
 
     const handleToggleStopwatchClick = useCallback(() => {
       onUpdate({
@@ -168,7 +176,7 @@ const CardModal = React.memo(
     const labelIds = labels.map((label) => label.id);
 
     const contentNode = (
-      <Grid className={styles.grid}>
+      <Grid stackable className={styles.grid}>
         <Grid.Row className={styles.headerPadding}>
           <Grid.Column width={16} className={styles.headerPadding}>
             <div className={styles.headerWrapper}>
@@ -184,7 +192,15 @@ const CardModal = React.memo(
           </Grid.Column>
         </Grid.Row>
         <Grid.Row className={styles.modalPadding}>
-          <Grid.Column width={canEdit ? 12 : 16} className={styles.contentPadding}>
+          <Grid.Column
+            width={canEdit ? 12 : 16}
+            className={isContentDisplayed ? styles.contentPadding : styles.mobileDisplayNone}
+          >
+            {canEdit && (
+              <Button icon onClick={handleToggleSidebar} className={styles.toggleSidebar}>
+                <Icon name="wrench" />
+              </Button>
+            )}
             {(users.length > 0 || labels.length > 0 || dueDate || stopwatch) && (
               <div className={styles.moduleWrapper}>
                 {users.length > 0 && (
@@ -416,7 +432,13 @@ const CardModal = React.memo(
             />
           </Grid.Column>
           {canEdit && (
-            <Grid.Column width={4} className={styles.sidebarPadding}>
+            <Grid.Column
+              width={4}
+              className={isSidebarDisplayed ? styles.sidebarPadding : styles.mobileDisplayNone}
+            >
+              <Button icon onClick={handleToggleSidebar} className={styles.toggleSidebar}>
+                <Icon name="edit" />
+              </Button>
               <div className={styles.actions}>
                 <span className={styles.actionsTitle}>{t('action.addToCard')}</span>
                 <BoardMembershipsPopup

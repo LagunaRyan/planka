@@ -1,3 +1,5 @@
+@import "../../mediaQueries";
+
 :global(#app) {
   .addCardButton {
     background: #dfe3e6;
@@ -46,6 +48,12 @@
     scrollbar-width: thin;
     width: 290px;
 
+    @include mobile {
+      width: 100% !important;
+      max-height: initial;
+      overflow-y: initial;
+    }
+
     &:hover {
       width: 272px;
     }
@@ -71,6 +79,10 @@
     padding: 0 8px;
     white-space: normal;
     width: 272px;
+
+    @include mobile {
+      width: 100%;
+    }
   }
 
   .header {
@@ -100,6 +112,10 @@
     top: 2px;
     width: 32px;
 
+    @include mobile {
+      opacity: 1;
+    }
+
     &:hover {
       background: rgba(9, 30, 66, 0.13);
       color: #516b7a;
@@ -121,6 +137,10 @@
   .innerWrapper {
     margin-right: 8px;
     width: 272px;
+
+    @include mobile {
+      width: 100%;
+    }
   }
 
   .outerWrapper {
