@@ -1,3 +1,5 @@
+@import "../../mediaQueries";
+
 :global(#app) {
   .actionsButton {
     background: none;
@@ -20,6 +22,10 @@
     &:hover {
       background: #ebeef0;
       color: #516b7a;
+    }
+
+    @include mobile {
+      opacity: 1;
     }
   }
 

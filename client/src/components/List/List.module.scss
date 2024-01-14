@@ -21,6 +21,10 @@
       color: #17394d;
       fill: #17394d;
     }
+
+    @include mobile {
+      display: none;
+    }
   }
 
   .addCardButtonIcon {
@@ -52,6 +56,7 @@
       width: 100% !important;
       max-height: initial;
       overflow-y: initial;
+      height: 0;
     }
 
     &:hover {
@@ -87,8 +92,10 @@
 
   .header {
     outline: none;
-    padding: 6px 36px 4px 8px;
+    padding: 6px 4px 8px;
     position: relative;
+    display: flex;
+    gap: 4px;
 
     &:hover .target {
       opacity: 1;
@@ -107,7 +114,6 @@
     margin: 0;
     opacity: 0;
     padding: 0;
-    position: absolute;
     right: 2px;
     top: 2px;
     width: 32px;
@@ -122,6 +128,15 @@
     }
   }
 
+  .headerCount {
+    display: flex;
+    align-items: center;
+
+    @include tablet {
+      display: none;
+    }
+  }
+
   .headerName {
     color: #17394d;
     font-weight: bold;
@@ -132,6 +147,7 @@
     overflow-wrap: break-word;
     padding: 4px 8px;
     word-break: break-word;
+    flex-grow: 1;
   }
 
   .innerWrapper {
@@ -140,6 +156,29 @@
 
     @include mobile {
       width: 100%;
+    }
+  }
+
+  .list {
+    &Active {
+      .addCardButton {
+        display: inherit;
+      }
+
+      .cardsInnerWrapper {
+        height: auto;
+      }
+
+      .listToggle {
+        background: rgba(9, 30, 66, 0.13);
+        color: #516b7a;
+      }
+    }
+
+    &Toggle {
+      @include tablet {
+        display: none;
+      }
     }
   }
 

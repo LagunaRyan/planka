@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
-import { Button, Icon } from 'semantic-ui-react';
+import { Button, Icon, Label } from 'semantic-ui-react';
 import { usePopup } from '../../lib/popup';
 
 import DroppableTypes from '../../constants/DroppableTypes';
@@ -28,6 +28,13 @@ const List = React.memo(
         nameEdit.current.open();
       }
     }, [isPersisted, canEdit]);
+
+    const [isListActive, setIsListActive] = useState(false);
+
+    const handleListToggle = (e) => {
+      e.stopPropagation();
+      setIsListActive(!isListActive);
+    };
 
     const handleNameUpdate = useCallback(
       (newName) => {
@@ -98,7 +105,7 @@ const List = React.memo(
             ref={innerRef}
             className={styles.innerWrapper}
           >
-            <div className={styles.outerWrapper}>
+            <div className={classNames(styles.outerWrapper, isListActive && styles.listActive)}>
               {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,
                                            jsx-a11y/no-static-element-interactions */}
               <div
@@ -109,6 +116,7 @@ const List = React.memo(
                 <NameEdit ref={nameEdit} defaultValue={name} onUpdate={handleNameUpdate}>
                   <div className={styles.headerName}>{name}</div>
                 </NameEdit>
+                <Label className={styles.headerCount}>{cardIds.length}</Label>
                 {isPersisted && canEdit && (
                   <ActionsPopup
                     onNameEdit={handleNameEdit}
@@ -120,6 +128,12 @@ const List = React.memo(
                     </Button>
                   </ActionsPopup>
                 )}
+                <Button
+                  className={classNames(styles.headerButton, styles.listToggle)}
+                  onClick={handleListToggle}
+                >
+                  <Icon fitted name={`chevron ${isListActive ? 'up' : 'down'}`} size="small" />
+                </Button>
               </div>
               <div
                 ref={listWrapper}
